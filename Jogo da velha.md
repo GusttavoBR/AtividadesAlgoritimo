@@ -1,4 +1,4 @@
-```js
+```alg
 Algoritmo "Jogo da Velha"
 // 1 vs PC
 // Jogo único
