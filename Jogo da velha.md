@@ -25,8 +25,75 @@ inicio
    escreval("  ", tabuleiro[3,1],"  |  ", tabuleiro[3,2],"  |  ", tabuleiro[3,3],"  ")
    escreval("     |     |     ")
 fimprocedimento
+
+procedimento verificaGanhador
+inicio
+   se (tabuleiro[1,1] = tabuleiro[1,2]) e (tabuleiro[1,2] = tabuleiro[1,3]) entao
+      escrevaL("Parabéns, o jogador ", tabuleiro[1,1], " Venceu o jogo !")
+      cont <- 9
+      escreva("Digite qualquer tecla para continuar...")
+      leia (op)
+   senao
+      se (tabuleiro[2,1] = tabuleiro[2,2]) e (tabuleiro[2,2] = tabuleiro[2,3]) entao
+         escrevaL("Parabéns, o jogador ", tabuleiro[2,1], " Venceu o jogo !")
+         cont <- 9
+         escreva("Digite qualquer tecla para continuar...")
+         leia (op)
+      senao
+         se (tabuleiro[3,1] = tabuleiro[3,2]) e (tabuleiro[3,2] = tabuleiro[3,3]) entao
+            escrevaL("Parabéns, o jogador ", tabuleiro[3,1], " Venceu o jogo !")
+            cont <- 9
+            escreva("Digite qualquer tecla para continuar...")
+            leia (op)
+         senao
+            se (tabuleiro[1,1] = tabuleiro[2,1]) e (tabuleiro[2,1] = tabuleiro[3,1]) entao
+               escrevaL("Parabéns, o jogador ", tabuleiro[1,1], " Venceu o jogo !")
+               cont <- 9
+               escreva("Digite qualquer tecla para continuar...")
+               leia (op)
+            senao
+               se (tabuleiro[1,2] = tabuleiro[2,2]) e (tabuleiro[2,2] = tabuleiro[3,2]) entao
+                  escrevaL("Parabéns, o jogador ", tabuleiro[1,2], " Venceu o jogo !")
+                  cont <- 9
+                  escreva("Digite qualquer tecla para continuar...")
+                  leia (op)
+               senao
+                  se (tabuleiro[1,3] = tabuleiro[2,3]) e (tabuleiro[2,3] = tabuleiro[3,3]) entao
+                     escrevaL("Parabéns, o jogador ", tabuleiro[1,3], " Venceu o jogo !")
+                     cont <- 9
+                     escreva("Digite qualquer tecla para continuar...")
+                     leia (op)
+                  senao
+                     se (tabuleiro[1,1] = tabuleiro[2,2]) e (tabuleiro[2,2] = tabuleiro[3,3]) entao
+                        escrevaL("Parabéns, o jogador ", tabuleiro[1,1], " Venceu o jogo !")
+                        cont <- 9
+                        escreva("Digite qualquer tecla para continuar...")
+                        leia (op)
+                     senao
+                        se (tabuleiro[1,3] = tabuleiro[2,2]) e (tabuleiro[2,2] = tabuleiro[3,1]) entao
+                           escrevaL("Parabéns, o jogador ", tabuleiro[1,3], " Venceu o jogo !")
+                           cont <- 9
+                           escreva("Digite qualquer tecla para continuar...")
+                           leia (op)
+                        fimse
+                     fimse
+                  fimse
+               fimse
+            fimse
+         fimse
+      fimse
+   fimse
+   se cont = 8 entao
+      cont <- 9
+      escreval("DEU VELHA!!! :-(")
+      escreva("Digite qualquer tecla para continuar...")
+      leia (op)
+   fimse
+fimprocedimento
+
 procedimento resetTab
 inicio
+   cont <- 0
    para i de 1 ate 3 passo 1 faca
       para j de 1 ate 3 passo 1 faca
          cont <- cont + 1
@@ -43,111 +110,114 @@ Var
    erro: logico
 
 Inicio
-   escrevaL("_________________________________")
-   escrevaL("BEM VINDO AO JOGO DA VELHA - GIR")
-   escrevaL("_________________________________")
-   escreval
-   escreva("Novo jogo? [S/N] ")
-   leia(esc)
-   se (esc = "s") ou (esc = "S") entao
-      resetTab
-      r <- rand * 10
-      se r > 5 entao
-         escreval
-         escreval("Player 1 = O")
-         escreval("Player 2 = X")
-      senao
-         escreval
-         escreval("Player 1 = X")
-         escreval("Player 2 = O")
-      fimse
-   fimse
-
-   cont <- 0
-
-   erro <- falso
-   enquanto cont < 9 faca
-      se (erro) entao
-         escreval("Jogada Invalída, jogue de novo!")
-         erro <- falso
-      senao
-         cont <- cont + 1
-      fimse
-      x <- "X"
-      se cont % 2 <> 0 entao
-         x <- "O"
+   enquanto (esc <> "n") ou (esc <> "N") faca
+      limpatela
+      escrevaL("_________________________________")
+      escrevaL("BEM VINDO AO JOGO DA VELHA - GIR")
+      escrevaL("_________________________________")
+      escreval
+      escreva("Novo jogo? [S/N] ")
+      leia(esc)
+      se (esc = "s") ou (esc = "S") entao
+         resetTab
+         r <- rand * 10
+         se r > 5 entao
+            escreval
+            escreval("Player 1 = O")
+            escreval("Player 2 = X")
+         senao
+            escreval
+            escreval("Player 1 = X")
+            escreval("Player 2 = O")
+         fimse
       fimse
 
-      escreval("Digite um numero para ", x,": ")
-      leia(op)
-      escolha op
+      cont <- 0
 
-      caso 1
-        se (tabuleiro[1,1] = "1") entao
-          tabuleiro[1,1] <- x
-        senao
-          erro <- verdadeiro
-        fimse
+      erro <- falso
+      enquanto cont < 9 faca
+         se (erro) entao
+            escreval("Jogada Invalída, jogue de novo!")
+            erro <- falso
+         senao
+            cont <- cont + 1
+         fimse
+         x <- "X"
+         se cont % 2 <> 0 entao
+            x <- "O"
+         fimse
 
-      caso 2
-         se (tabuleiro[1,2] = "2") entao
-          tabuleiro[1,2] <- x
-        senao
-          erro <- verdadeiro
-        fimse
-      caso 3
-         se (tabuleiro[1,3] = "3") entao
-          tabuleiro[1,3] <- x
-        senao
-          erro <- verdadeiro
-        fimse
+         escreval("Digite um numero para ", x,": ")
+         leia(op)
+         escolha op
 
-      caso 4
-         se (tabuleiro[2,1] = "4") entao
-          tabuleiro[2,1] <- x
-        senao
-          erro <- verdadeiro
-        fimse
-      caso 5
-         se (tabuleiro[2,2] = "5") entao
-          tabuleiro[2,2] <- x
-        senao
-          erro <- verdadeiro
-        fimse
-      caso 6
-         se (tabuleiro[2,3] = "6") entao
-          tabuleiro[2,3] <- x
-        senao
-          erro <- verdadeiro
-        fimse
+         caso 1
+            se (tabuleiro[1,1] = "1") entao
+               tabuleiro[1,1] <- x
+            senao
+               erro <- verdadeiro
+            fimse
 
-      caso 7
-         se (tabuleiro[3,1] = "7") entao
-          tabuleiro[3,1] <- x
-        senao
-          erro <- verdadeiro
-        fimse
-      caso 8
-         se (tabuleiro[3,2] = "8") entao
-          tabuleiro[3,2] <- x
-        senao
-          erro <- verdadeiro
-        fimse
-      caso 9
-         se (tabuleiro[3,3] = "9") entao
-          tabuleiro[3,3] <- x
-        senao
-          erro <- verdadeiro
-        fimse
+         caso 2
+            se (tabuleiro[1,2] = "2") entao
+               tabuleiro[1,2] <- x
+            senao
+               erro <- verdadeiro
+            fimse
+         caso 3
+            se (tabuleiro[1,3] = "3") entao
+               tabuleiro[1,3] <- x
+            senao
+               erro <- verdadeiro
+            fimse
 
-      outrocaso
-         erro <- verdadeiro
+         caso 4
+            se (tabuleiro[2,1] = "4") entao
+               tabuleiro[2,1] <- x
+            senao
+               erro <- verdadeiro
+            fimse
+         caso 5
+            se (tabuleiro[2,2] = "5") entao
+               tabuleiro[2,2] <- x
+            senao
+               erro <- verdadeiro
+            fimse
+         caso 6
+            se (tabuleiro[2,3] = "6") entao
+               tabuleiro[2,3] <- x
+            senao
+               erro <- verdadeiro
+            fimse
+
+         caso 7
+            se (tabuleiro[3,1] = "7") entao
+               tabuleiro[3,1] <- x
+            senao
+               erro <- verdadeiro
+            fimse
+         caso 8
+            se (tabuleiro[3,2] = "8") entao
+               tabuleiro[3,2] <- x
+            senao
+               erro <- verdadeiro
+            fimse
+         caso 9
+            se (tabuleiro[3,3] = "9") entao
+               tabuleiro[3,3] <- x
+            senao
+               erro <- verdadeiro
+            fimse
+
+         outrocaso
+            erro <- verdadeiro
          fimescolha
 
          viewTab
+         se cont >= 5 entao
+            verificaGanhador
+         fimse
       fimenquanto
-
-
-
+   fimenquanto
 Fimalgoritmo
 ```
