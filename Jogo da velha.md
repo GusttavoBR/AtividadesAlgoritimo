@@ -29,49 +29,42 @@ fimprocedimento
 procedimento verificaGanhador
 inicio
    se (tabuleiro[1,1] = tabuleiro[1,2]) e (tabuleiro[1,2] = tabuleiro[1,3]) entao
-      tabuleiro[1,1] <- g
       escrevaL("Parabéns, o jogador ", g, " Venceu o jogo !")
       cont <- 9
       escreva("Digite qualquer tecla para continuar...")
       leia (op)
    senao
       se (tabuleiro[2,1] = tabuleiro[2,2]) e (tabuleiro[2,2] = tabuleiro[2,3]) entao
-         tabuleiro[2,1] <- g
          escrevaL("Parabéns, o jogador ", g, " Venceu o jogo !")
          cont <- 9
          escreva("Digite qualquer tecla para continuar...")
          leia (op)
       senao
          se (tabuleiro[3,1] = tabuleiro[3,2]) e (tabuleiro[3,2] = tabuleiro[3,3]) entao
-            tabuleiro[3,1] <- g
             escrevaL("Parabéns, o jogador ", g, " Venceu o jogo !")
             cont <- 9
             escreva("Digite qualquer tecla para continuar...")
             leia (op)
          senao
             se (tabuleiro[1,1] = tabuleiro[2,1]) e (tabuleiro[2,1] = tabuleiro[3,1]) entao
-               tabuleiro[1,1] <- g
                escrevaL("Parabéns, o jogador ", g, " Venceu o jogo !")
                cont <- 9
                escreva("Digite qualquer tecla para continuar...")
                leia (op)
             senao
                se (tabuleiro[1,2] = tabuleiro[2,2]) e (tabuleiro[2,2] = tabuleiro[3,2]) entao
-                  tabuleiro[1,2] <- g
                   escrevaL("Parabéns, o jogador ", g, " Venceu o jogo !")
                   cont <- 9
                   escreva("Digite qualquer tecla para continuar...")
                   leia (op)
                senao
                   se (tabuleiro[1,3] = tabuleiro[2,3]) e (tabuleiro[2,3] = tabuleiro[3,3]) entao
-                     tabuleiro[1,3] <- g
                      escrevaL("Parabéns, o jogador ", g, " Venceu o jogo !")
                      cont <- 9
                      escreva("Digite qualquer tecla para continuar...")
                      leia (op)
                   senao
                      se (tabuleiro[1,1] = tabuleiro[2,2]) e (tabuleiro[2,2] = tabuleiro[3,3]) entao
-                        tabuleiro[1,1] <- g
                         escrevaL("Parabéns, o jogador ", g, " Venceu o jogo !")
 
                         cont <- 9
@@ -79,7 +72,6 @@ inicio
                         leia (op)
                      senao
                         se (tabuleiro[1,3] = tabuleiro[2,2]) e (tabuleiro[2,2] = tabuleiro[3,1]) entao
-                           tabuleiro[1,3] <- g
                            escrevaL("Parabéns, o jogador ", g, " Venceu o jogo !")
                            cont <- 9
                            escreva("Digite qualquer tecla para continuar...")
@@ -112,7 +104,7 @@ inicio
    viewTab
 fimprocedimento
 Var
-   esc, x, j1, j2, g: caracter
+   esc, x, j1, j2, g, c1, c2: caracter
    tabuleiro: vetor[1..3,1..3]de caracter
    i,j, cont, op, l: inteiro
    r: real
@@ -130,16 +122,22 @@ Inicio
       se (esc = "s") ou (esc = "S") entao
          resetTab
          r <- rand * 10
+
+         escreval("Digite o nome do primeiro jogador: ")
+         leia(j1)
+         escreval("Digite o nome do segundo jogador: ")
+         leia(j2)
+
          se r > 5 entao
             escreval
-            escreval("Digite o nome do primeiro jogador: ")
-            leia(j1)
-            escreval("Digite o nome do segundo jogador: ")
-            leia(j2)
+            c1 <- j2
+            c2 <- j1
             escreval(j1, "= O")
             escreval(j2, "= X")
          senao
             escreval
+            c1 <- j1
+            c2 <- j2
             escreval(j1, " = X")
             escreval(j2, " = O")
          fimse
@@ -156,10 +154,10 @@ Inicio
             cont <- cont + 1
          fimse
          x <- "X"
-         g <- j1
+         g <- c1
          se cont % 2 = 0 entao
             x <- "O"
-            g <- j2
+            g <- c2
          fimse
 
          escreval(g, " digite um numero para ", x,": ")
@@ -235,5 +233,4 @@ Inicio
       fimenquanto
    fimenquanto
 Fimalgoritmo
-
 ```
